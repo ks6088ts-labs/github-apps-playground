@@ -706,7 +706,7 @@ wheels = [
 ]
 
 [[package]]
-name = "template-python"
+name = "github-apps-playground"
 version = "0.0.1"
 source = { editable = "." }
 
