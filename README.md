@@ -14,6 +14,11 @@ This is a template repository for Python
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [GNU Make](https://www.gnu.org/software/make/)
 
+## Libraries
+
+- [FastAPI](https://fastapi.tiangolo.com/): Web API framework
+- [Pydantic Settings](https://fastapi.tiangolo.com/advanced/settings/#pydantic-settings): Settings management
+
 ## Development instructions
 
 ### Local development
