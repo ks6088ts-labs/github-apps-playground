@@ -1,15 +1,5 @@
-import logging
-
-from github_apps_playground.core import hello_world
+from github_apps_playground.core import app
 
 
-def test_hello_world_verbose(caplog):
-    with caplog.at_level(logging.DEBUG):
-        hello_world(verbose=True)
-    assert "Hello World" in caplog.text
-
-
-def test_hello_world_non_verbose(caplog):
-    with caplog.at_level(logging.DEBUG):
-        hello_world(verbose=False)
-    assert "Hello, world!" not in caplog.text
+def test_app():
+    assert app is not None

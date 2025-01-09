@@ -1,13 +1,13 @@
-import logging
+from fastapi import FastAPI
 
-logger = logging.getLogger(__name__)
+from github_apps_playground.routers.common import router as common_router
 
+app = FastAPI(
+    docs_url="/",
+)
 
-def hello_world(verbose: bool = False):
-    if verbose:
-        logging.basicConfig(level=logging.DEBUG)
-    logging.debug("Hello World")
-
-
-if __name__ == "__main__":
-    hello_world(verbose=True)
+for router in [
+    common_router,
+    # Add routers here
+]:
+    app.include_router(router)
