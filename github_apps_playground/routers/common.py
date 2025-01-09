@@ -14,7 +14,7 @@ router = APIRouter(
 
 @router.get("/info")
 def info():
-    logger.info(settings.json(indent=2))
+    logger.info(settings.model_dump_json(indent=2))
     return {
         "version": settings.common_version,
     }
