@@ -21,4 +21,4 @@ COPY . .
 # Install dependencies
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-CMD ["python", "github_apps_playground/core.py"]
+CMD ["uvicorn", "github_apps_playground.core:app", "--host", "0.0.0.0", "--port", "8000"]

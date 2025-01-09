@@ -39,6 +39,7 @@ lint: ## lint
 
 .PHONY: test
 test: ## run tests
+	cp .env.template .env
 	uv run pytest --capture=no -vv
 
 .PHONY: ci-test
@@ -65,7 +66,11 @@ docker-build: ## build Docker image
 
 .PHONY: docker-run
 docker-run: ## run Docker container
-	docker run --rm $(DOCKER_REPO_NAME)/$(DOCKER_IMAGE_NAME):$(GIT_TAG) $(DOCKER_COMMAND)
+	docker run --rm \
+		-v $(PWD)/.env:/app/.env \
+		-p 8000:8000 \
+		$(DOCKER_REPO_NAME)/$(DOCKER_IMAGE_NAME):$(GIT_TAG) \
+		$(DOCKER_COMMAND)
 
 .PHONY: docker-lint
 docker-lint: ## lint Dockerfile
@@ -78,7 +83,7 @@ docker-scan: ## scan Docker image
 	trivy image $(DOCKER_REPO_NAME)/$(DOCKER_IMAGE_NAME):$(GIT_TAG)
 
 .PHONY: ci-test-docker
-ci-test-docker: docker-lint docker-build docker-scan docker-run ## run CI test for Docker
+ci-test-docker: docker-lint docker-build docker-scan ## run CI test for Docker
 
 # ---
 # Docs
@@ -94,3 +99,15 @@ docs-serve: ## serve documentation
 
 .PHONY: ci-test-docs
 ci-test-docs: docs ## run CI test for documentation
+
+# ---
+# Project
+# ---
+PORT ?= 8000
+
+.PHONY: run
+run: ## run application
+	uv run uvicorn github_apps_playground.core:app \
+		--host 0.0.0.0 \
+		--port $(PORT) \
+		--reload
